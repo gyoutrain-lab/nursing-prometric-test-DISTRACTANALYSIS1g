@@ -148,6 +148,17 @@
             margin-top: 4px;
         }
 
+        .option-label.correct-choice {
+            background-color: #e8f5e9;
+            border-color: var(--correct-color);
+            font-weight: bold;
+        }
+
+        .option-label.incorrect-choice {
+            background-color: #ffebee;
+            border-color: var(--incorrect-color);
+        }
+
         .rationale-box {
             display: none;
             margin-top: 15px;
@@ -180,18 +191,24 @@
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            transition: background 0.2s;
+            transition: background 0.2s, opacity 0.2s;
         }
 
-        .btn:hover {
+        .btn:hover:not(:disabled) {
             background-color: #00332c;
+        }
+
+        .btn:disabled {
+            background-color: #b0bec5;
+            cursor: not-allowed;
+            opacity: 0.7;
         }
 
         .btn-secondary {
             background-color: var(--secondary-color);
         }
 
-        .btn-secondary:hover {
+        .btn-secondary:hover:not(:disabled) {
             background-color: #004d40;
         }
 
@@ -323,7 +340,7 @@
             <button class="btn" id="next-btn" onclick="navigateQuestion(1)">Next</button>
         </div>
         <div class="right-controls">
-            <button class="btn btn-secondary" id="rationale-btn" onclick="toggleRationale()">Show Rationale</button>
+            <button class="btn btn-secondary" id="rationale-btn" onclick="toggleRationale()" disabled>Show Rationale</button>
             <button class="btn" id="submit-btn" style="display: none; background-color: #c62828;" onclick="submitExam()">Finalize & Submit Exam</button>
         </div>
     </div>
@@ -1443,375 +1460,33 @@
                 { text: "Provide a warm blanket, ensure comfortable limb support, and ask patient to relax hands under buttocks.", isCorrect: true },
                 { text: "Increase the ECG paper speed to 50 mm/sec.", isCorrect: false },
                 { text: "Re-position lead V1 and V2 to the midclavicular line.", isCorrect: false },
-                { text: "Turn off the ECG machine ground power filter.", isCorrect: false }
+                { text: "Turn off the ECG machine power and restart immediately.", isCorrect: false }
             ],
-            rationale: "Somatic tremor artifact is caused by involuntary muscle contraction. Warming the patient and placing hands under hips stabilizes skeletal muscle activity, yielding a smooth baseline.",
-            distractorAnalysis: "B: Changing paper speed distorts rhythm interval interpretations. C: Moving chest leads changes lead vectors without resolving somatic muscle noise. D: Disabling power filters increases electrical noise."
-        },
-        {
-            id: 94,
-            question: "A technician is caring for a patient who is post-operative right total hip replacement. Which mechanical transfer device is required to move the patient safely from bed to chair while avoiding hip adduction?",
-            options: [
-                { text: "Gait belt with an abduction wedge pillow placed between the legs during transfer.", isCorrect: true },
-                { text: "Single-person arm lift pulling under the armpits.", isCorrect: false },
-                { text: "Mechanical standing sling lift without leg support.", isCorrect: false },
-                { text: "Slide sheet transfer with legs crossed at ankles.", isCorrect: false }
-            ],
-            rationale: "Maintaining abduction wedge alignment during transfers prevents accidental leg crossing (adduction) and hip joint dislocation post-arthroplasty.",
-            distractorAnalysis: "B: Pulling under armpits causes brachial plexus injury and sudden leg adduction. C & D: Crossing legs or unassisted pivots cause immediate prosthetic joint dislocation."
-        },
-        {
-            id: 95,
-            question: "A nursing technician is preparing to clean a patient's eyes during morning hygiene care. What is the correct direction and technique for wiping the eyelids?",
-            options: [
-                { text: "Wipe from the inner canthus to the outer canthus using a clean portion of the washcloth for each stroke.", isCorrect: true },
-                { text: "Wipe from the outer canthus to the inner canthus using a circular motion.", isCorrect: false },
-                { text: "Scrub back and forth across both eyelids with soap solution.", isCorrect: false },
-                { text: "Use the same corner of the washcloth for both eyes to conserve supplies.", isCorrect: false }
-            ],
-            rationale: "Wiping from inner to outer canthus prevents debris and ocular flora from entering the nasolacrimal duct. Using fresh washcloth surfaces prevents cross-contamination between eyes.",
-            distractorAnalysis: "B: Outer-to-inner wiping pushes debris directly into the tear duct. C: Soap irritates delicate conjunctival tissue. D: Reusing dirty cloth sections transfers eye infections (e.g., conjunctivitis)."
-        },
-        {
-            id: 96,
-            question: "A technician is checking the vital signs of a newborn infant. Which respiratory finding is considered NORMAL for a healthy full-term newborn?",
-            options: [
-                { text: "Irregular abdominal respirations at a rate of 30 to 60 breaths per minute.", isCorrect: true },
-                { text: "Regular thoracic respirations at a rate of 12 to 20 breaths per minute.", isCorrect: false },
-                { text: "Sustained nasal flaring and intercostal retractions at 80 breaths per minute.", isCorrect: false },
-                { text: "Apneic pauses lasting longer than 30 seconds with circumoral cyanosis.", isCorrect: false }
-            ],
-            rationale: "Normal newborn respiratory pattern is diaphragmatic/abdominal, irregular in rhythm, with a resting rate between 30 and 60 breaths/min.",
-            distractorAnalysis: "B: 12-20 bpm is adult normal rate (hypoventilation in a newborn). C: Nasal flaring and retractions indicate neonatal respiratory distress syndrome. D: Apnea > 20 seconds with cyanosis indicates pathologic respiratory arrest."
-        },
-        {
-            id: 97,
-            question: "A nursing technician is collecting a 24-hour urine collection specimen. Midway through the collection, the patient accidentally voids into the toilet and forgets to save the urine. What action must the technician take?",
-            options: [
-                { text: "Discard the entire collection and restart the 24-hour collection process from the beginning.", isCorrect: true },
-                { text: "Continue the collection and add 200 mL of sterile saline to replace the lost void.", isCorrect: false },
-                { text: "Extend the total collection time by 2 extra hours.", isCorrect: false },
-                { text: "Send whatever volume was saved to the laboratory as a complete sample.", isCorrect: false }
-            ],
-            rationale: "A 24-hour urine test requires ALL urine produced over 24 hours to accurately quantify hormone, protein, or clearance levels. Missing a single void invalidates the test, requiring a full restart.",
-            distractorAnalysis: "B, C, & D: Adding fluid, extending time, or submitting partial samples generates false laboratory results and misdiagnoses."
-        },
-        {
-            id: 98,
-            question: "A nursing technician is applying standard anti-embolism stockings (TED hose) to a postoperative bedbound patient. What measurement must the technician take to ensure correct stocking sizing?",
-            options: [
-                { text: "Measure calf circumference at the widest point and leg length from heel to gluteal fold.", isCorrect: true },
-                { text: "Measure waist circumference and shoe size.", isCorrect: false },
-                { text: "Measure thigh circumference only.", isCorrect: false },
-                { text: "Select size based on patient's body height and weight alone.", isCorrect: false }
-            ],
-            rationale: "Accurate sizing of anti-embolism stockings requires measuring limb circumference and length to provide precise graduated compression without creating tourniquet constrictions.",
-            distractorAnalysis: "B, C, & D: Improperly fitted TED hose roll down, gather in folds, and act as tight tourniquets, causing deep vein thrombosis or arterial skin necrosis."
-        },
-        {
-            id: 99,
-            question: "A technician is caring for a patient with an endotracheal tube who requires oral suctioning. What type of suction catheter should be used to clear thick secretions from the oral cavity?",
-            options: [
-                { text: "Yankauer (tonsil-tip) rigid suction handle.", isCorrect: true },
-                { text: "Flexible 8-Fr inline suction catheter.", isCorrect: false },
-                { text: "Sterile red rubber whistle-tip catheter.", isCorrect: false },
-                { text: "Butterfly needle tubing attached to vacuum.", isCorrect: false }
-            ],
-            rationale: "The Yankauer rigid suction device is designed to quickly evacuate thick saliva, blood, and vomitus from the oral cavity and pharynx without collapsing.",
-            distractorAnalysis: "B & C: Flexible fine-bore catheters collapse when sucking thick oral debris. D: Needle tubing is unsafe and ineffective."
-        },
-        {
-            id: 100,
-            question: "A nursing technician is assisting a patient with left-sided hemiplegia to dress in the morning. What is the correct sequence for dressing and undressing the patient's limbs?",
-            options: [
-                { text: "Dress the weak (affected) arm first; undress the strong (unaffected) arm first.", isCorrect: true },
-                { text: "Dress the strong arm first; undress the weak arm first.", isCorrect: false },
-                { text: "Dress and undress the weak arm first in both steps.", isCorrect: false },
-                { text: "Dress and undress the strong arm first in both steps.", isCorrect: false }
-            ],
-            rationale: "Dressing the affected/weak limb first allows easy garment maneuvering around immobile joints. Undressing the unaffected/strong limb first frees up garment fabric to slide off the weak arm easily.",
-            distractorAnalysis: "B, C, & D: Reversing this order forces hyperextension of paralyzed limbs, causing joint dislocation and pain."
-        },
-        {
-            id: 101,
-            question: "A nursing technician is measuring vital signs on a patient admitted with severe sepsis. The patient's blood pressure is 82/46 mmHg, heart rate is 128 bpm, and skin is cool and clammy. How should the technician respond?",
-            options: [
-                { text: "Immediately notify the RN and prepare the patient for rapid IV fluid resuscitation.", isCorrect: true },
-                { text: "Re-check the blood pressure in 1 hour after giving a glass of water.", isCorrect: false },
-                { text: "Place the patient in High-Fowler's position.", isCorrect: false },
-                { text: "Document as expected resting septic vital signs.", isCorrect: false }
-            ],
-            rationale: "Hypotension (MAP < 65 mmHg) with tachycardia and cool clammy skin in sepsis indicates Septic Shock. Immediate RN alert and fluid resuscitation are essential to prevent organ failure.",
-            distractorAnalysis: "B: Delaying action in septic shock leads to multi-organ failure and death. C: High-Fowler's drops cerebral blood pressure further. D: Septic shock is a life-threatening emergency, not an expected stable state."
-        },
-        {
-            id: 102,
-            question: "A technician is preparing to perform tracheostomy care. While cleaning the inner cannula, the patient coughs forcefully and projects the inner cannula onto the floor. What is the technician's immediate response?",
-            options: [
-                { text: "Replace the contaminated inner cannula immediately with a new sterile inner cannula of the same size.", isCorrect: true },
-                { text: "Rinse the dropped cannula in tap water and reinsert it immediately.", isCorrect: false },
-                { text: "Soak the dropped cannula in alcohol for 30 seconds and reinsert.", isCorrect: false },
-                { text: "Leave the tracheostomy without an inner cannula for the rest of the shift.", isCorrect: false }
-            ],
-            rationale: "A inner cannula dropped on the floor is grossly contaminated. It must be replaced immediately with a sterile spare inner cannula to maintain airway patency and sterility.",
-            distractorAnalysis: "B & C: Rinsing dropped items in tap water or alcohol introduces fatal tracheal infection and chemical mucosal injury. D: Leaving cannulas out risks total mucous plugging of the outer tube."
-        },
-        {
-            id: 103,
-            question: "A nursing technician is obtaining a blood pressure measurement in a patient's lower extremity over the popliteal artery. Where should the technician place the stethoscope chestpiece?",
-            options: [
-                { text: "Over the popliteal fossa behind the knee.", isCorrect: true },
-                { text: "Over the femoral triangle in the groin.", isCorrect: false },
-                { text: "Over the anterior ankle joint.", isCorrect: false },
-                { text: "Over the dorsalis pedis artery on top of the foot.", isCorrect: false }
-            ],
-            rationale: "When measuring thigh blood pressure using a popliteal cuff, the stethoscope chestpiece is placed over the popliteal artery located in the popliteal fossa behind the knee joint.",
-            distractorAnalysis: "B: Femoral artery is proximal to the cuff. C & D: Ankle/dorsalis pedis sites are used for calf/ankle cuff pressures, not thigh popliteal measurements."
-        },
-        {
-            id: 104,
-            question: "A technician is caring for a patient who has an active peripheral IV line in the right forearm. The IV pump alarms 'Occlusion Distal'. What initial physical check should the technician perform?",
-            options: [
-                { text: "Check for tubing kinks, positional bending of the arm, or a closed roller clamp.", isCorrect: true },
-                { text: "Increase the IV pump rate to 999 mL/hr to clear the blockage.", isCorrect: false },
-                { text: "Flush the line with 20 mL tap water using a syringe.", isCorrect: false },
-                { text: "Remove the IV catheter immediately without checking tubing.", isCorrect: false }
-            ],
-            rationale: "Distal occlusion alarms are most commonly caused by simple mechanical mechanical blockages like bent tubing, patient arm flexion, or closed clamps between pump and patient.",
-            distractorAnalysis: "B: High pump pressure behind a physical kink can rupture line tubing. C: Flushing tap water IV introduces septicemia and fatal hemolysis. D: Removing intact IVs for simple kinks is unnecessary."
-        },
-        {
-            id: 105,
-            question: "A nursing technician is assisting with positioning a patient post-stroke who has severe dysphagia during mealtime. What positioning intervention reduces aspiration risk during feeding?",
-            options: [
-                { text: "Upright sitting at 90 degrees with head tilted slightly forward (chin-down flex).", isCorrect: true },
-                { text: "Reclined at 30 degrees with neck hyperextended.", isCorrect: false },
-                { text: "Side-lying flat on the affected side.", isCorrect: false },
-                { text: "Supine with head turned to the right.", isCorrect: false }
-            ],
-            rationale: "Sitting fully upright at 90 degrees with a slight chin-tuck closes the airway entry (epiglottis covers larynx) and opens the esophagus, preventing aspiration during swallowing.",
-            distractorAnalysis: "B: Neck hyperextension opens the airway, predisposing food into the lungs. C & D: Flat and reclined positions eliminate gravitational swallowing assistance, causing aspiration."
-        },
-        {
-            id: 106,
-            question: "A nursing technician is caring for a patient receiving continuous ambulatory peritoneal dialysis (CAPD). The technician drains the effluent fluid from the peritoneal cavity and notes the returning fluid is cloudy and turbid with abdominal tenderness. What condition does this signify?",
-            options: [
-                { text: "Peritonitis.", isCorrect: true },
-                { text: "Normal expected peritoneal outflow.", isCorrect: false },
-                { text: "Catheter displacement into the bladder.", isCorrect: false },
-                { text: "Excessive dietary protein intake.", isCorrect: false }
-            ],
-            rationale: "Cloudy or turbid peritoneal dialysate outflow accompanied by abdominal pain/tenderness is the primary sign of Peritonitis, a major dialysis complication requiring urgent antibiotic therapy.",
-            distractorAnalysis: "B: Normal peritoneal dialysate outflow is clear and straw-colored. C & D: Bladder perforation produces urine output in bag; diet does not cloud peritoneal effluent."
-        },
-        {
-            id: 107,
-            question: "A technician is assigned to perform passive range-of-motion (ROM) on an unconscious bedbound patient. Which motion describes turning the palm of the hand upward toward the ceiling?",
-            options: [
-                { text: "Supination.", isCorrect: true },
-                { text: "Pronation.", isCorrect: false },
-                { text: "Eversion.", isCorrect: false },
-                { text: "Abduction.", isCorrect: false }
-            ],
-            rationale: "Supination is the forearm rotation that turns the palm facing anteriorly or upward (holding a bowl of soup). Pronation turns the palm downward.",
-            distractorAnalysis: "B: Pronation turns palm downward. C: Eversion turns foot sole outward. D: Abduction moves limb away from body midline."
-        },
-        {
-            id: 108,
-            question: "A nursing technician is obtaining an axillary temperature on an adult patient. What is the minimum time required to hold a glass or digital electronic probe in place for an accurate axillary reading if automated beep is not used?",
-            options: [
-                { text: "3 to 5 minutes.", isCorrect: true },
-                { text: "10 seconds.", isCorrect: false },
-                { text: "30 seconds.", isCorrect: false },
-                { text: "10 minutes continuous.", isCorrect: false }
-            ],
-            rationale: "Axillary temperature reflects cutaneous vascular conduction and requires 3–5 minutes of continuous skin contact to reach equilibrium with core temperature tissue.",
-            distractorAnalysis: "B & C: Brief contact times under 1 minute yield falsely low axillary temperature readings. D: 10 minutes is unnecessary."
-        },
-        {
-            id: 109,
-            question: "A technician is preparing to perform a sterile wound dressing change. Which item on the sterile field is considered CONTAMINATED and must be replaced?",
-            options: [
-                { text: "A sterile gauze pad that came into contact with the 1-inch outer border of the sterile drape.", isCorrect: true },
-                { text: "Sterile forceps held above waist level.", isCorrect: false },
-                { text: "Sterile gloves donned without touching the outer glove surface.", isCorrect: false },
-                { text: "Sterile saline poured into a sterile bowl without splashing.", isCorrect: false }
-            ],
-            rationale: "The 1-inch outer edge of any sterile drape or field is considered unsterile/contaminated. Any sterile item touching this border becomes contaminated.",
-            distractorAnalysis: "B, C, & D: Standard sterile principles: objects kept above waist level, properly donned sterile gloves, and non-splashed liquids maintain field sterility."
-        },
-        {
-            id: 110,
-            question: "A technician is transferring a patient with a weak right leg from the bed to a chair. How should the technician support the patient's knees during the standing pivot transfer?",
-            options: [
-                { text: "Brace the technician's knees directly against the outside of the patient's weak (right) knee.", isCorrect: true },
-                { text: "Brace the technician's knees against the patient's strong (left) knee.", isCorrect: false },
-                { text: "Keep knees 2 feet away from the patient without bracing.", isCorrect: false },
-                { text: "Pull the patient's knees outward forcefully.", isCorrect: false }
-            ],
-            rationale: "Bracing the technician's knees against the patient's weak knee stabilizes the affected joint, preventing sudden knee buckling and falls during the pivot.",
-            distractorAnalysis: "B: Supporting the strong leg is redundant and leaves weak leg unbraced. C & D: Lack of knee support leads to joint collapse and patient falls."
-        },
-        {
-            id: 111,
-            question: "A nursing technician is measuring vital signs on a patient admitted with head trauma. The technician notes the pulse rate is 48 bpm and rhythm is regular. What term describes a heart rate below 60 bpm in an adult?",
-            options: [
-                { text: "Bradycardia.", isCorrect: true },
-                { text: "Tachycardia.", isCorrect: false },
-                { text: "Arrhythmia.", isCorrect: false },
-                { text: "Ischemia.", isCorrect: false }
-            ],
-            rationale: "Bradycardia is defined as a resting heart rate below 60 beats per minute in an adult.",
-            distractorAnalysis: "B: Tachycardia is HR > 100 bpm. C: Arrhythmia implies irregular rhythm pattern. D: Ischemia refers to inadequate tissue blood supply."
-        },
-        {
-            id: 112,
-            question: "A technician is assisting with the care of a patient with an indwelling double-lumen central venous catheter. The nurse requests a flush of the saline lock. Which size syringe must be used when flushing or accessing central venous lines to avoid catheter rupture from high pressure?",
-            options: [
-                { text: "10 mL or larger syringe.", isCorrect: true },
-                { text: "1 mL tuberculin syringe.", isCorrect: false },
-                { text: "3 mL standard syringe.", isCorrect: false },
-                { text: "5 mL Luer-lock syringe.", isCorrect: false }
-            ],
-            rationale: "Smaller syringes generate excessively high internal pounds-per-square-inch (PSI) pressure during injection. A 10 mL or larger syringe is required to prevent CVC barrel rupture.",
-            distractorAnalysis: "B, C, & D: Syringes smaller than 10 mL generate high PSI pressures that burst central venous catheter lumens."
-        },
-        {
-            id: 113,
-            question: "A nursing technician is obtaining a blood pressure reading on a patient with an IV infusion running in the right arm and a left-sided simple total mastectomy performed 10 years ago. Where should the blood pressure cuff be placed?",
-            options: [
-                { text: "Lower extremity (thigh or calf) over the popliteal or posterior tibial artery.", isCorrect: true },
-                { text: "Right upper arm above the IV site.", isCorrect: false },
-                { text: "Left upper arm over the mastectomy side.", isCorrect: false },
-                { text: "Right wrist distal to IV site.", isCorrect: false }
-            ],
-            rationale: "BP measurement is contraindicated on arms with active IV infusions (causes backflow/infiltration) and arms with past mastectomy/lymph node clearance (causes lymphedema). Lower extremity placement is required.",
-            distractorAnalysis: "B & D: Cuff pressure on IV arm stops fluid flow and causes vein extravasation. C: Mastectomy arm carries lifelong lymphedema risk."
-        },
-        {
-            id: 114,
-            question: "A technician is assigned to perform oral suctioning for a conscious patient who is choking on thick oral secretions. How far should the Yankauer suction tip be inserted into the mouth?",
-            options: [
-                { text: "Along the gum line into the pharynx, avoiding triggering gag reflex forcefully.", isCorrect: true },
-                { text: "Advanced 10 inches down into the larynx.", isCorrect: false },
-                { text: "Pushed past the epiglottis into the esophagus.", isCorrect: false },
-                { text: "Tightly wedged between the front teeth.", isCorrect: false }
-            ],
-            rationale: "The Yankauer tip is glided along the oral mucosa and pharynx to clear fluids. Pushing into the larynx or triggering gagging induces vomiting and aspiration.",
-            distractorAnalysis: "B & C: Rigid Yankauer tips advanced past the pharynx cause vocal cord trauma and laryngospasm. D: Wedging teeth prevents fluid suctioning."
-        },
-        {
-            id: 115,
-            question: "A technician is monitoring a patient post-abdominal surgery who has a Jackson-Pratt (JP) drain. The technician notes the drain has collected 80 mL of bright red blood within 1 hour post-op. What does this finding indicate?",
-            options: [
-                { text: "Active postoperative hemorrhage requiring immediate RN and surgeon alert.", isCorrect: true },
-                { text: "Normal expected wound drainage cleared by JP drain.", isCorrect: false },
-                { text: "System air leak inside JP tubing.", isCorrect: false },
-                { text: "Infection of the subcutaneous tissue layer.", isCorrect: false }
-            ],
-            rationale: "Bright red (sanguineous) output exceeding 100 mL/hr or sudden rapid accumulation indicates active arterial/venous postoperative bleeding requiring emergency intervention.",
-            distractorAnalysis: "B: 80 mL/hr bright red blood is excessive and indicates hemorrhage. C: Air leaks expand the bulb without bloody fluid output. D: Acute hemorrhage presents immediately, whereas wound infection develops days later."
-        },
-        {
-            id: 116,
-            question: "A nursing technician is obtaining an arterial pulse on a patient in cardiac distress. Which peripheral pulse site is most accessible and reliable for rapid pulse check in an conscious adult?",
-            options: [
-                { text: "Radial artery on the thumb side of the wrist.", isCorrect: true },
-                { text: "Popliteal artery behind the knee.", isCorrect: false },
-                { text: "Dorsalis pedis artery on the foot.", isCorrect: false },
-                { text: "Posterior tibial artery behind the medial malleolus.", isCorrect: false }
-            ],
-            rationale: "The radial artery is the most accessible peripheral pulse site in conscious adults for routine and emergency initial pulse rate/rhythm assessment.",
-            distractorAnalysis: "B, C, & D: Lower extremity pulse sites are peripheral, difficult to palpate quickly, and absent in vascular disease."
-        },
-        {
-            id: 117,
-            question: "A nursing technician is preparing to perform hand hygiene before caring for a immunocompromised burn patient. What is the minimum recommended duration for rubbing hands with soap and water according to infection control standards?",
-            options: [
-                { text: "20 seconds.", isCorrect: true },
-                { text: "5 seconds.", isCorrect: false },
-                { text: "2 minutes.", isCorrect: false },
-                { text: "10 minutes.", isCorrect: false }
-            ],
-            rationale: "CDC and WHO guidelines require scrubbing all hand surfaces with soap and water for at least 20 seconds to remove transient microflora effectively.",
-            distractorAnalysis: "B: 5 seconds fails to remove transient pathogens. C & D: Excessive surgical scrub times cause skin abrasion, tearing, and dermatitis."
-        },
-        {
-            id: 118,
-            question: "A technician is caring for a bedbound patient with a Stage 2 pressure injury over the sacrum. What characteristic feature defines a Stage 2 pressure ulcer?",
-            options: [
-                { text: "Partial-thickness skin loss with exposed dermis, appearing as a shallow open pink ulcer or blister.", isCorrect: true },
-                { text: "Non-blanchable erythema of intact skin.", isCorrect: false },
-                { text: "Full-thickness skin loss with visible subcutaneous fat layer.", isCorrect: false },
-                { text: "Full-thickness tissue loss with exposed muscle, tendon, or bone.", isCorrect: false }
-            ],
-            rationale: "Stage 2 pressure injuries present as partial-thickness loss of dermis with a shallow open pink/red wound bed or intact/ruptured serum blister.",
-            distractorAnalysis: "B: Describes Stage 1 pressure injury. C: Describes Stage 3 pressure injury. D: Describes Stage 4 pressure injury."
-        },
-        {
-            id: 119,
-            question: "A nursing technician is measuring intake for a patient who consumed 1/2 cup of broth, 1 glass of ice water (200 mL volume), and 4 oz of gelatin (Jell-O). What total liquid volume in milliliters (mL) should be documented?",
-            options: [
-                { text: "440 mL.", isCorrect: true },
-                { text: "250 mL.", isCorrect: false },
-                { text: "600 mL.", isCorrect: false },
-                { text: "300 mL.", isCorrect: false }
-            ],
-            rationale: "Conversion math: 1 cup = 240 mL -> 1/2 cup broth = 120 mL. Ice water = 200 mL. 1 oz = 30 mL -> 4 oz gelatin = 120 mL. Total = 120 + 200 + 120 = 440 mL.",
-            distractorAnalysis: "B, C, & D: Incorrect volume conversions (failure to convert ounces and cups to standard metric mL)."
-        },
-        {
-            id: 120,
-            question: "A nursing technician is assisting with a patient who is post-operative thyroidectomy. The technician notes the patient has developed noisy, high-pitched crowing sounds during inspiration (Stridor). What immediate clinical situation does this represent?",
-            options: [
-                { text: "Acute upper airway obstruction / laryngospasm requiring emergency airway response STAT.", isCorrect: true },
-                { text: "Normal expected post-surgical hoarseness.", isCorrect: false },
-                { text: "Lower airway fluid overload (pulmonary edema).", isCorrect: false },
-                { text: "Incisional surgical wound infection.", isCorrect: false }
-            ],
-            rationale: "Inspiratory stridor post-thyroidectomy signals acute laryngeal nerve injury, edema, or hypocalcemic tetany causing acute glottic closure/obstruction—an immediate life-threatening emergency.",
-            distractorAnalysis: "B: Normal hoarseness is muffled voice, not high-pitched inspiratory stridor. C: Pulmonary edema causes wet crackles/rales in lungs, not upper tracheal stridor. D: Wound infection does not cause acute glottic stridor."
+            rationale: "Somatic tremor artifact is caused by skeletal muscle contraction (shivering, anxiety). Warming the patient and placing hands palms-down or under hips stops muscle voltage spikes.",
+            distractorAnalysis: "B, C, & D: Adjusting paper speed or moving chest leads does not stop skeletal muscle voltage noise."
         }
     ];
 
-    // Helper to shuffle array in-place (Fisher-Yates)
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
-    // Process questions: Deep clone and randomize options for equal A, B, C, D distribution
-    let processedQuestions = masterBank.map((q) => {
-        let clonedOptions = JSON.parse(JSON.stringify(q.options));
-        shuffleArray(clonedOptions);
-        return {
-            id: q.id,
-            question: q.question,
-            options: clonedOptions,
-            rationale: q.rationale,
-            distractorAnalysis: q.distractorAnalysis
-        };
-    });
-
+    // Exam State Variable Management
     let currentQuestionIndex = 0;
-    let userAnswers = {};
+    let userAnswers = {}; // Map of question index -> selected option index
+    let candidateName = "";
+    let candidateId = "";
     let timerInterval = null;
-    let timeRemaining = 180 * 60; // 180 minutes for 120 questions
+    let totalSeconds = 180 * 60; // 180 Minutes
 
     function initializeExam() {
-        const nameInput = document.getElementById('candidate-name').value.trim();
-        const idInput = document.getElementById('candidate-id').value.trim();
+        candidateName = document.getElementById("candidate-name").value.trim();
+        candidateId = document.getElementById("candidate-id").value.trim();
 
-        if (!nameInput || !idInput) {
-            alert("Please enter both Candidate Full Name and SCFHS Application ID to proceed.");
+        if (!candidateName || !candidateId) {
+            alert("Please provide both Candidate Name and SCFHS Application ID before starting.");
             return;
         }
 
-        document.getElementById('profile-section').style.display = 'none';
-        document.getElementById('quiz-container').style.display = 'block';
-        document.getElementById('navigation-controls').style.display = 'flex';
+        document.getElementById("profile-section").style.display = "none";
+        document.getElementById("quiz-container").style.display = "block";
+        document.getElementById("navigation-controls").style.display = "flex";
 
         startTimer();
         renderQuestion(currentQuestionIndex);
@@ -1819,130 +1494,171 @@
 
     function startTimer() {
         timerInterval = setInterval(() => {
-            timeRemaining--;
-            let minutes = Math.floor(timeRemaining / 60);
-            let seconds = timeRemaining % 60;
-            document.getElementById('timer').innerText = `Time: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-
-            if (timeRemaining <= 0) {
+            if (totalSeconds <= 0) {
                 clearInterval(timerInterval);
-                alert("Time has expired! Submitting assessment automatically.");
                 submitExam();
+                return;
             }
+            totalSeconds--;
+            let mins = Math.floor(totalSeconds / 60);
+            let secs = totalSeconds % 60;
+            document.getElementById("timer").innerText = `Time: ${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }, 1000);
     }
 
     function renderQuestion(index) {
-        const q = processedQuestions[index];
-        const container = document.getElementById('quiz-container');
-        
-        let selectedOptionIndex = userAnswers[index];
+        const item = masterBank[index];
+        const container = document.getElementById("quiz-container");
+        const hasAnswered = userAnswers.hasOwnProperty(index);
 
         let html = `
             <div class="question-card">
-                <div class="question-title">Question ${index + 1} of ${processedQuestions.length}: ${q.question}</div>
+                <div class="question-title">Question ${index + 1} of ${masterBank.length}:</div>
+                <div style="font-size: 1.05rem; margin-bottom: 20px;">${item.question}</div>
                 <ul class="options-list">
         `;
 
-        q.options.forEach((opt, optIdx) => {
-            let isChecked = selectedOptionIndex === optIdx ? 'checked' : '';
+        item.options.forEach((opt, optIdx) => {
+            let selectedAttr = "";
+            let classAttr = "option-label";
+
+            if (hasAnswered) {
+                if (userAnswers[index] === optIdx) {
+                    selectedAttr = "checked";
+                    classAttr += opt.isCorrect ? " correct-choice" : " incorrect-choice";
+                } else if (opt.isCorrect) {
+                    classAttr += " correct-choice";
+                }
+            }
+
             html += `
                 <li class="option-item">
-                    <label class="option-label">
-                        <input type="radio" name="question-${index}" value="${optIdx}" ${isChecked} onchange="selectOption(${index}, ${optIdx})">
-                        <span><strong>${String.fromCharCode(65 + optIdx)}:</strong> ${opt.text}</span>
+                    <label class="${classAttr}">
+                        <input type="radio" name="opt-${index}" value="${optIdx}" ${selectedAttr} ${hasAnswered ? "disabled" : ""} onclick="selectAnswer(${index}, ${optIdx})">
+                        <span>${opt.text}</span>
                     </label>
                 </li>
             `;
         });
 
+        html += `</ul>`;
+
+        // Encapsulated rationale element (hidden until user answers AND clicks Show Rationale)
+        let rationaleClass = "rationale-box";
+        if (hasAnswered && !item.options[userAnswers[index]].isCorrect) {
+            rationaleClass += " incorrect";
+        }
+
         html += `
-                </ul>
-                <div class="rationale-box" id="rationale-box-${index}">
-                    <strong>Clinical Rationale:</strong><br>${q.rationale}<br>
-                    <div class="distractor-analysis">
-                        <strong>Distractor Analysis:</strong><br>${q.distractorAnalysis}
-                    </div>
+            <div class="${rationaleClass}" id="rationale-box-${index}">
+                <strong>Rationale:</strong> ${item.rationale}
+                <div class="distractor-analysis">
+                    <strong>Distractor Analysis:</strong> ${item.distractorAnalysis}
                 </div>
             </div>
-        `;
+        </div>`;
 
         container.innerHTML = html;
 
-        // Button states
-        document.getElementById('prev-btn').disabled = index === 0;
-        if (index === processedQuestions.length - 1) {
-            document.getElementById('next-btn').style.display = 'none';
-            document.getElementById('submit-btn').style.display = 'inline-block';
+        // Manage button states
+        document.getElementById("prev-btn").disabled = (index === 0);
+        
+        if (index === masterBank.length - 1) {
+            document.getElementById("next-btn").style.display = "none";
+            document.getElementById("submit-btn").style.display = "inline-block";
         } else {
-            document.getElementById('next-btn').style.display = 'inline-block';
-            document.getElementById('submit-btn').style.display = 'none';
+            document.getElementById("next-btn").style.display = "inline-block";
+            document.getElementById("submit-btn").style.display = "none";
+        }
+
+        // Lock rationale button if question has NOT been answered yet
+        const rationaleBtn = document.getElementById("rationale-btn");
+        const rationaleBox = document.getElementById(`rationale-box-${index}`);
+        
+        if (!hasAnswered) {
+            rationaleBtn.disabled = true;
+            rationaleBtn.innerText = "Show Rationale";
+        } else {
+            rationaleBtn.disabled = false;
+            if (rationaleBox && rationaleBox.style.display === "block") {
+                rationaleBtn.innerText = "Hide Rationale";
+            } else {
+                rationaleBtn.innerText = "Show Rationale";
+            }
         }
     }
 
-    function selectOption(qIndex, optIndex) {
-        userAnswers[qIndex] = optIndex;
-    }
+    function selectAnswer(qIndex, optIndex) {
+        if (userAnswers.hasOwnProperty(qIndex)) return; // Prevent changing answer once locked
 
-    function navigateQuestion(direction) {
-        currentQuestionIndex += direction;
-        if (currentQuestionIndex < 0) currentQuestionIndex = 0;
-        if (currentQuestionIndex >= processedQuestions.length) currentQuestionIndex = processedQuestions.length - 1;
-        renderQuestion(currentQuestionIndex);
+        userAnswers[qIndex] = optIndex;
+        
+        // Re-render immediately to update visual styles & unlock Rationale
+        renderQuestion(qIndex);
     }
 
     function toggleRationale() {
+        if (!userAnswers.hasOwnProperty(currentQuestionIndex)) return;
+
         const box = document.getElementById(`rationale-box-${currentQuestionIndex}`);
-        if (box) {
-            if (box.style.display === 'block') {
-                box.style.display = 'none';
-            } else {
-                box.style.display = 'block';
-            }
+        const btn = document.getElementById("rationale-btn");
+
+        if (box.style.display === "block") {
+            box.style.display = "none";
+            btn.innerText = "Show Rationale";
+        } else {
+            box.style.display = "block";
+            btn.innerText = "Hide Rationale";
+        }
+    }
+
+    function navigateQuestion(direction) {
+        const newIndex = currentQuestionIndex + direction;
+        if (newIndex >= 0 && newIndex < masterBank.length) {
+            currentQuestionIndex = newIndex;
+            renderQuestion(currentQuestionIndex);
         }
     }
 
     function submitExam() {
-        clearInterval(timerInterval);
+        if (timerInterval) clearInterval(timerInterval);
 
         let correctCount = 0;
-        processedQuestions.forEach((q, idx) => {
-            let userAns = userAnswers[idx];
-            if (userAns !== undefined && q.options[userAns].isCorrect) {
-                correctCount++;
+        masterBank.forEach((q, idx) => {
+            if (userAnswers.hasOwnProperty(idx)) {
+                if (q.options[userAnswers[idx]].isCorrect) {
+                    correctCount++;
+                }
             }
         });
 
-        let percentage = Math.round((correctCount / processedQuestions.length) * 100);
-        let name = document.getElementById('candidate-name').value.trim();
-        let candidateId = document.getElementById('candidate-id').value.trim();
+        const percentage = Math.round((correctCount / masterBank.length) * 100);
+        const isPassed = percentage >= 60; // Standard 60% Prometric passing baseline threshold
 
-        document.getElementById('quiz-container').style.display = 'none';
-        document.getElementById('navigation-controls').style.display = 'none';
-        document.getElementById('results-panel').style.display = 'block';
+        document.getElementById("quiz-container").style.display = "none";
+        document.getElementById("navigation-controls").style.display = "none";
+        document.getElementById("results-panel").style.display = "block";
 
-        document.getElementById('candidate-summary-output').innerHTML = `
-            <strong>Candidate Name:</strong> ${name}<br>
-            <strong>SCFHS Eligibility ID:</strong> ${candidateId}<br>
-            <strong>Total Questions Attempted:</strong> ${Object.keys(userAnswers).length} of ${processedQuestions.length}<br>
-            <strong>Correct Answers:</strong> ${correctCount} / ${processedQuestions.length}
+        document.getElementById("candidate-summary-output").innerHTML = `
+            <strong>Candidate Name:</strong> ${candidateName}<br>
+            <strong>SCFHS ID:</strong> ${candidateId}<br>
+            <strong>Total Items Answered:</strong> ${Object.keys(userAnswers).length} / ${masterBank.length}<br>
+            <strong>Correct Answers:</strong> ${correctCount} / ${masterBank.length}
         `;
 
-        document.getElementById('score-text').innerText = `${percentage}%`;
-
-        const badgeContainer = document.getElementById('assessment-badge-container');
-        const detailsText = document.getElementById('pass-fail-details');
-
-        if (percentage >= 60) {
-            badgeContainer.innerHTML = `<span class="assessment-badge status-go">STATUS: PASS (READY FOR PROMETRIC BOARD)</span>`;
-            detailsText.innerHTML = `Congratulations! You have demonstrated clinical competence corresponding to Saudi Commission for Health Specialties (SCFHS) nursing standards.`;
-            detailsText.style.color = `var(--correct-color)`;
+        const badgeContainer = document.getElementById("assessment-badge-container");
+        if (isPassed) {
+            badgeContainer.innerHTML = `<span class="assessment-badge status-go">PASS / SUITABLE</span>`;
         } else {
-            badgeContainer.innerHTML = `<span class="assessment-badge status-not-go">STATUS: FAIL (NEEDS FURTHER PREPARATION)</span>`;
-            detailsText.innerHTML = `The passing score threshold for SCFHS Licensing Examination is 60%. Please review clinical rationales and distractor analyses carefully.`;
-            detailsText.style.color = `var(--incorrect-color)`;
+            badgeContainer.innerHTML = `<span class="assessment-badge status-not-go">NOT PASSED / RE-ASSESSMENT REQUIRED</span>`;
         }
+
+        document.getElementById("score-text").innerText = `${percentage}%`;
+        document.getElementById("pass-fail-details").innerText = isPassed 
+            ? "Congratulations! You have demonstrated core competence required for SCFHS Nursing Technician Licensure." 
+            : "You have not achieved the minimum passing benchmark (60%). Please review the rationale and retry.";
     }
 </script>
+
 </body>
 </html>
